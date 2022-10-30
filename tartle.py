@@ -1,4 +1,4 @@
-import random
+import os
 
 INITIAL_STATE = [2, 2]
 
@@ -83,12 +83,14 @@ def print_board(s):
 
 def main():
     s = INITIAL_STATE
+    os.system('cls')
     print("F(s): {0}".format(F(s)))
     print("mode(s): {0}".format(mode(s)))
     print("G(mode(s)): {0}".format(G(mode(s))))
     print_board(s)
     while True:
         s = upd(s, input("action: "))
+        os.system('cls')
         print("F(s): {0}".format(F(s)))
         print("mode(s): {0}".format(mode(s)))
         print("G(mode(s)): {0}".format(G(mode(s))))
