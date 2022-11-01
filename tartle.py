@@ -9,9 +9,9 @@ def F(s):
         ret.append('U')
     if s[0] < 4:
         ret.append('D')
-    if s[1] > 0:
-        ret.append('R')
     if s[1] < 4:
+        ret.append('R')
+    if s[1] > 0:
         ret.append('L')
     return ret
 
@@ -69,7 +69,7 @@ def upd(s, a):
     return tran(s, a)
 
 
-def print_board(s):
+def view_forw(s):
     for i in range(5):
         row = '|'
         for j in range(5):
@@ -87,14 +87,14 @@ def main():
     print("F(s): {0}".format(F(s)))
     print("mode(s): {0}".format(mode(s)))
     print("G(mode(s)): {0}".format(G(mode(s))))
-    print_board(s)
+    view_forw(s)
     while True:
         s = upd(s, input("action: "))
         os.system('cls')
         print("F(s): {0}".format(F(s)))
         print("mode(s): {0}".format(mode(s)))
         print("G(mode(s)): {0}".format(G(mode(s))))
-        print_board(s)
+        view_forw(s)
 
 
 if __name__ == "__main__":

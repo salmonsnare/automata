@@ -1,9 +1,10 @@
 import os
 import random
 import time
+from colored import fg, stylize
 
 INITIAL_STATE = [13, 13]
-
+history_state = []
 
 def F(s):
     ret = []
@@ -11,9 +12,9 @@ def F(s):
         ret.append('U')
     if s[0] < 100:
         ret.append('D')
-    if s[1] > 0:
-        ret.append('R')
     if s[1] < 100:
+        ret.append('R')
+    if s[1] > 0:
         ret.append('L')
     return ret
 
@@ -76,11 +77,25 @@ def print_board(s):
         row = '|'
         for j in range(25):
             if s[0] == i and s[1] == j:
-                row += ('亀' + '|')
+                row += (stylize('亀', fg("green")) + '|')
             else:
                 row += ('　' + '|')
         print(row)
     print('---')
+
+
+def print_history():
+    for i in range(25):
+        row = '|'
+        for j in range(25):
+            if [i, j] in history_state:
+                if history_state[len(history_state) - 1] == [i, j]:
+                    row += (stylize('亀', fg("light_green")) + '|')
+                else:
+                   row += (stylize('亀', fg("dark_green")) + '|')
+            else:
+                row += ('　' + '|')
+        print(row)
 
 
 def main():
@@ -90,16 +105,18 @@ def main():
     print("mode(s): {0}".format(mode(s)))
     print("G(mode(s)): {0}".format(G(mode(s))))
     print_board(s)
+    history_state.append(s)
     while True:
         # s = upd(s, input("action: "))
         s = upd(s, random.choice(F(s)))
+        history_state.append(s)
         os.system('cls')
         print("F(s): {0}".format(F(s)))
         print("mode(s): {0}".format(mode(s)))
         print("G(mode(s)): {0}".format(G(mode(s))))
-        print_board(s)
-        time.sleep(0.5)
-
+        print_history()
+        time.sleep(0.25)
+        
 
 if __name__ == "__main__":
     main()
